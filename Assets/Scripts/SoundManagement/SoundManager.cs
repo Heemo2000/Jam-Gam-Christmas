@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.Pool;
 using Game.Core;
 
@@ -19,20 +20,37 @@ namespace Game.SoundManagement
         
         [Min(1)]
         [SerializeField]private int maxSoundInstances = 30;
+        [SerializeField]private AudioMixer musicAudioMixer;
+        [SerializeField]private AudioMixer sfxAudioMixer;
         IObjectPool<SoundEmitter> soundEmitterPool;
+
+        private SoundBuilder defaultSoundBuilder;
         private readonly List<SoundEmitter> activeSoundEmitters = new();
         public readonly LinkedList<SoundEmitter> frequentSoundEmitters = new();
-
         
-        public void Play(SoundData soundData, Vector3 position, bool randomPitch)
+        public void SetMusicVolume(float amount)
         {
+            musicAudioMixer.SetFloat(Constants.MUSIC_VOLUME, amount);
+        }
+
+        public void SetSFXVolume(float amount)
+        {
+            sfxAudioMixer.SetFloat(Constants.SFX_VOLUME, amount);
+        }
+
+        public void Play(SoundData soundData, Vector3 position, bool randomPitch = false)
+        {
+            if(defaultSoundBuilder == null)
+            {
+                defaultSoundBuilder = CreateSoundBuilder();
+            }
             if(randomPitch)
             {
-                CreateSoundBuilder().WithPosition(position).Play(soundData);
+                defaultSoundBuilder.WithPosition(position).Play(soundData);
             }
             else
             {
-                CreateSoundBuilder().WithPosition(position).WithRandomPitch().Play(soundData);
+                defaultSoundBuilder.WithPosition(position).WithRandomPitch().Play(soundData);
             }
         }
 
