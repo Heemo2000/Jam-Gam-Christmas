@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 using Game.Input;
 
 namespace Game.Core
@@ -10,6 +9,7 @@ namespace Game.Core
     {
         
         public Action OnPausePressed;
+        public Action OnJump;
         private PlayerInputActions playerInputActions;
         
         public Vector2 GetMovementInputNormalized()
@@ -18,10 +18,18 @@ namespace Game.Core
         }
         public Vector2 GetMovementInput()
         {
-            return Vector2.zero;
-            //return playerInputActions.PlayerActionMap.Movement.ReadValue<Vector2>();
+            return playerInputActions.PlayerActionMap.Movement.ReadValue<Vector2>();
         }
 
+        private void OnJumpPressed(InputAction.CallbackContext context)
+        {
+            OnJump?.Invoke();
+        }
+
+        private void OnPausePress(InputAction.CallbackContext context)
+        {
+            OnPausePressed?.Invoke();   
+        }
         
         private void Awake() 
         {
@@ -31,18 +39,9 @@ namespace Game.Core
         // Start is called before the first frame update
         void Start()
         {
-            
-            
-        }
-
-        private void Update() 
-        {
-               
-        }
-
-        private void OnDestroy() 
-        {
-
+            playerInputActions.Enable();
+            playerInputActions.PlayerActionMap.Jump.started += OnJumpPressed;
+            playerInputActions.PlayerActionMap.Pause.started += OnPausePress;   
         }
     }
 }

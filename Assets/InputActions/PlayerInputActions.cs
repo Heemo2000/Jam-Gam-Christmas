@@ -24,9 +24,148 @@ namespace Game.Input
         {
             asset = InputActionAsset.FromJson(@"{
     ""name"": ""PlayerInputActions"",
-    ""maps"": [],
+    ""maps"": [
+        {
+            ""name"": ""PlayerActionMap"",
+            ""id"": ""e772ae3e-a56d-49f9-a1d2-36ec5e5e9850"",
+            ""actions"": [
+                {
+                    ""name"": ""Movement"",
+                    ""type"": ""Value"",
+                    ""id"": ""5091a4a7-d7f6-455b-bd14-eab0ad7b37b2"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""6d2276ec-6d85-43b3-b73a-ac386dd5bfd3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""878d4ca8-9bcb-4652-988c-e7f30e67b7a0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RotateDelta"",
+                    ""type"": ""Value"",
+                    ""id"": ""3469a2b0-b0ba-4ba7-9197-299d217de2de"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""Keyboard"",
+                    ""id"": ""19890b6c-8cc5-4f00-bebb-5d5b45868fe2"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""edd9bf46-fc9e-432a-9bde-c0cc6c9a7dfa"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""53395708-e858-472c-9db6-5aba6b88ae5f"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""43eeb948-18ee-4645-b287-06648b90495f"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""dcaffce3-fd15-41d7-85d0-dceaefacf75a"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e026577a-640e-4336-841a-2ccd15e0cd2b"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1f68614b-b947-4492-8ce4-8cec47b8614c"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""233e5b2d-9da5-43a6-b9ef-451a78e0365e"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateDelta"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        }
+    ],
     ""controlSchemes"": []
 }");
+            // PlayerActionMap
+            m_PlayerActionMap = asset.FindActionMap("PlayerActionMap", throwIfNotFound: true);
+            m_PlayerActionMap_Movement = m_PlayerActionMap.FindAction("Movement", throwIfNotFound: true);
+            m_PlayerActionMap_Jump = m_PlayerActionMap.FindAction("Jump", throwIfNotFound: true);
+            m_PlayerActionMap_Pause = m_PlayerActionMap.FindAction("Pause", throwIfNotFound: true);
+            m_PlayerActionMap_RotateDelta = m_PlayerActionMap.FindAction("RotateDelta", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -83,6 +222,83 @@ namespace Game.Input
         public int FindBinding(InputBinding bindingMask, out InputAction action)
         {
             return asset.FindBinding(bindingMask, out action);
+        }
+
+        // PlayerActionMap
+        private readonly InputActionMap m_PlayerActionMap;
+        private List<IPlayerActionMapActions> m_PlayerActionMapActionsCallbackInterfaces = new List<IPlayerActionMapActions>();
+        private readonly InputAction m_PlayerActionMap_Movement;
+        private readonly InputAction m_PlayerActionMap_Jump;
+        private readonly InputAction m_PlayerActionMap_Pause;
+        private readonly InputAction m_PlayerActionMap_RotateDelta;
+        public struct PlayerActionMapActions
+        {
+            private @PlayerInputActions m_Wrapper;
+            public PlayerActionMapActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Movement => m_Wrapper.m_PlayerActionMap_Movement;
+            public InputAction @Jump => m_Wrapper.m_PlayerActionMap_Jump;
+            public InputAction @Pause => m_Wrapper.m_PlayerActionMap_Pause;
+            public InputAction @RotateDelta => m_Wrapper.m_PlayerActionMap_RotateDelta;
+            public InputActionMap Get() { return m_Wrapper.m_PlayerActionMap; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(PlayerActionMapActions set) { return set.Get(); }
+            public void AddCallbacks(IPlayerActionMapActions instance)
+            {
+                if (instance == null || m_Wrapper.m_PlayerActionMapActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_PlayerActionMapActionsCallbackInterfaces.Add(instance);
+                @Movement.started += instance.OnMovement;
+                @Movement.performed += instance.OnMovement;
+                @Movement.canceled += instance.OnMovement;
+                @Jump.started += instance.OnJump;
+                @Jump.performed += instance.OnJump;
+                @Jump.canceled += instance.OnJump;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
+                @RotateDelta.started += instance.OnRotateDelta;
+                @RotateDelta.performed += instance.OnRotateDelta;
+                @RotateDelta.canceled += instance.OnRotateDelta;
+            }
+
+            private void UnregisterCallbacks(IPlayerActionMapActions instance)
+            {
+                @Movement.started -= instance.OnMovement;
+                @Movement.performed -= instance.OnMovement;
+                @Movement.canceled -= instance.OnMovement;
+                @Jump.started -= instance.OnJump;
+                @Jump.performed -= instance.OnJump;
+                @Jump.canceled -= instance.OnJump;
+                @Pause.started -= instance.OnPause;
+                @Pause.performed -= instance.OnPause;
+                @Pause.canceled -= instance.OnPause;
+                @RotateDelta.started -= instance.OnRotateDelta;
+                @RotateDelta.performed -= instance.OnRotateDelta;
+                @RotateDelta.canceled -= instance.OnRotateDelta;
+            }
+
+            public void RemoveCallbacks(IPlayerActionMapActions instance)
+            {
+                if (m_Wrapper.m_PlayerActionMapActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(IPlayerActionMapActions instance)
+            {
+                foreach (var item in m_Wrapper.m_PlayerActionMapActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_PlayerActionMapActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public PlayerActionMapActions @PlayerActionMap => new PlayerActionMapActions(this);
+        public interface IPlayerActionMapActions
+        {
+            void OnMovement(InputAction.CallbackContext context);
+            void OnJump(InputAction.CallbackContext context);
+            void OnPause(InputAction.CallbackContext context);
+            void OnRotateDelta(InputAction.CallbackContext context);
         }
     }
 }
