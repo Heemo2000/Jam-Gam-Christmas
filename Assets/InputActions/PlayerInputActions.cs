@@ -57,13 +57,22 @@ namespace Game.Input
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""RotateDelta"",
+                    ""name"": ""Look"",
                     ""type"": ""Value"",
                     ""id"": ""3469a2b0-b0ba-4ba7-9197-299d217de2de"",
                     ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
+                    ""processors"": ""NormalizeVector2"",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Sprint"",
+                    ""type"": ""Button"",
+                    ""id"": ""87591774-4670-4597-84cc-da7486029a01"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -151,7 +160,18 @@ namespace Game.Input
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""RotateDelta"",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""65cf0f37-d226-4d23-a6d7-47671bb06276"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -165,7 +185,8 @@ namespace Game.Input
             m_PlayerActionMap_Movement = m_PlayerActionMap.FindAction("Movement", throwIfNotFound: true);
             m_PlayerActionMap_Jump = m_PlayerActionMap.FindAction("Jump", throwIfNotFound: true);
             m_PlayerActionMap_Pause = m_PlayerActionMap.FindAction("Pause", throwIfNotFound: true);
-            m_PlayerActionMap_RotateDelta = m_PlayerActionMap.FindAction("RotateDelta", throwIfNotFound: true);
+            m_PlayerActionMap_Look = m_PlayerActionMap.FindAction("Look", throwIfNotFound: true);
+            m_PlayerActionMap_Sprint = m_PlayerActionMap.FindAction("Sprint", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -230,7 +251,8 @@ namespace Game.Input
         private readonly InputAction m_PlayerActionMap_Movement;
         private readonly InputAction m_PlayerActionMap_Jump;
         private readonly InputAction m_PlayerActionMap_Pause;
-        private readonly InputAction m_PlayerActionMap_RotateDelta;
+        private readonly InputAction m_PlayerActionMap_Look;
+        private readonly InputAction m_PlayerActionMap_Sprint;
         public struct PlayerActionMapActions
         {
             private @PlayerInputActions m_Wrapper;
@@ -238,7 +260,8 @@ namespace Game.Input
             public InputAction @Movement => m_Wrapper.m_PlayerActionMap_Movement;
             public InputAction @Jump => m_Wrapper.m_PlayerActionMap_Jump;
             public InputAction @Pause => m_Wrapper.m_PlayerActionMap_Pause;
-            public InputAction @RotateDelta => m_Wrapper.m_PlayerActionMap_RotateDelta;
+            public InputAction @Look => m_Wrapper.m_PlayerActionMap_Look;
+            public InputAction @Sprint => m_Wrapper.m_PlayerActionMap_Sprint;
             public InputActionMap Get() { return m_Wrapper.m_PlayerActionMap; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -257,9 +280,12 @@ namespace Game.Input
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
-                @RotateDelta.started += instance.OnRotateDelta;
-                @RotateDelta.performed += instance.OnRotateDelta;
-                @RotateDelta.canceled += instance.OnRotateDelta;
+                @Look.started += instance.OnLook;
+                @Look.performed += instance.OnLook;
+                @Look.canceled += instance.OnLook;
+                @Sprint.started += instance.OnSprint;
+                @Sprint.performed += instance.OnSprint;
+                @Sprint.canceled += instance.OnSprint;
             }
 
             private void UnregisterCallbacks(IPlayerActionMapActions instance)
@@ -273,9 +299,12 @@ namespace Game.Input
                 @Pause.started -= instance.OnPause;
                 @Pause.performed -= instance.OnPause;
                 @Pause.canceled -= instance.OnPause;
-                @RotateDelta.started -= instance.OnRotateDelta;
-                @RotateDelta.performed -= instance.OnRotateDelta;
-                @RotateDelta.canceled -= instance.OnRotateDelta;
+                @Look.started -= instance.OnLook;
+                @Look.performed -= instance.OnLook;
+                @Look.canceled -= instance.OnLook;
+                @Sprint.started -= instance.OnSprint;
+                @Sprint.performed -= instance.OnSprint;
+                @Sprint.canceled -= instance.OnSprint;
             }
 
             public void RemoveCallbacks(IPlayerActionMapActions instance)
@@ -298,7 +327,8 @@ namespace Game.Input
             void OnMovement(InputAction.CallbackContext context);
             void OnJump(InputAction.CallbackContext context);
             void OnPause(InputAction.CallbackContext context);
-            void OnRotateDelta(InputAction.CallbackContext context);
+            void OnLook(InputAction.CallbackContext context);
+            void OnSprint(InputAction.CallbackContext context);
         }
     }
 }

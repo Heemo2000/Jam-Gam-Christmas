@@ -21,8 +21,8 @@ namespace Game.Gameplay
         [SerializeField]private float fallMultiplier = 1.0f;
 
         [SerializeField]private bool allowGravity = true;
-        [Header("Obstruction Settings: ")]
-        [SerializeField]private LayerMask obstructionLayerMask;
+        //[Header("Obstruction Settings: ")]
+        //[SerializeField]private LayerMask obstructionLayerMask;
         [Header("Jump Settings: ")]
         [Min(1.0f)]
         [SerializeField]private float jumpHeight = 5.0f;
@@ -34,10 +34,11 @@ namespace Game.Gameplay
 
         public float JumpHeight { get => jumpHeight; set => jumpHeight = value; }
 
-        public void Move(Vector2 moveInput, float rotateInputX, float moveSpeed, float rotationSpeed)
+        public void Move(Vector2 moveInput, float lookInputX, float moveSpeed, float rotationSpeed)
         {
-            Vector3 moveVector = new Vector3(moveInput.x, 0.0f, moveInput.y);
+            Vector3 moveVector = transform.forward * moveInput.y + transform.right * moveInput.x;
             
+            /*
             bool canMove = !Physics.CapsuleCast(transform.position, 
                                                 transform.position + Vector3.up * controller.center.y, 
                                                 controller.radius, 
@@ -48,7 +49,7 @@ namespace Game.Gameplay
             if(!canMove)
             {
                 //Attempt only X movement
-                Vector3 moveVectorX = Vector3.right * moveVector.x;
+                Vector3 moveVectorX = transform.right * moveInput.x;
                 moveVectorX.Normalize();
                 canMove = moveVectorX.x != 0 && !Physics.CapsuleCast(transform.position, 
                                                 transform.position + Vector3.up * controller.center.y, 
@@ -64,7 +65,7 @@ namespace Game.Gameplay
                 else
                 {
                     
-                    Vector3 moveVectorZ = Vector3.forward * moveVector.z;
+                    Vector3 moveVectorZ = transform.forward * moveInput.y;
                     moveVectorZ.Normalize();
                     canMove = moveVectorZ.z != 0 && !Physics.CapsuleCast(transform.position, 
                                                 transform.position + Vector3.up * controller.center.y, 
@@ -84,10 +85,11 @@ namespace Game.Gameplay
                     }
                 }
             }
+            */
              
-            controller.Move(moveVector * moveSpeed + Vector3.up * velocityY);
+            controller.Move((moveVector * moveSpeed + Vector3.up * velocityY) * Time.fixedDeltaTime);
             
-            float targetRotationY = transform.rotation.eulerAngles.y + rotateInputX * rotationSpeed;
+            float targetRotationY = lookInputX * rotationSpeed;
             transform.Rotate(Vector3.up * targetRotationY);
         }
 
@@ -122,13 +124,10 @@ namespace Game.Gameplay
             }
 
             initialJumpVelocity = Mathf.Sqrt(2.0f * gravity * jumpHeight);
-
-            //rb.MovePosition(transform.position + Vector3.up * velocityY * Time.fixedDeltaTime);
         }
-
-        private bool IsGrounded()
+        public bool IsGrounded()
         {
-            return Physics.CheckSphere(groundCheck.position,groundCheckRadius,groundMask.value);
+            return Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundMask.value);
         }
         
         private void Awake() 
@@ -138,6 +137,17 @@ namespace Game.Gameplay
 
         private void Start() {
             initialJumpVelocity = Mathf.Sqrt(2.0f * gravity * jumpHeight);
+        }
+
+        private void OnDrawGizmosSelected() 
+        {
+            if(groundCheck == null)
+            {
+                return;
+            }
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);    
         }
     }
 }
