@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6297229493353557118}
   - component: {fileID: 5505635356973040332}
   - component: {fileID: 1630968092056293920}
+  - component: {fileID: -6718803072900177594}
   m_Layer: 0
   m_Name: Mid_Roof_Angle_Left.001
   m_TagString: Untagged
@@ -86,3 +87,25 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &-6718803072900177594
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841742934343339131}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 1814757557343142193, guid: b1cde74f3fc8ae140b36b09ba71e2a8b, type: 3}
