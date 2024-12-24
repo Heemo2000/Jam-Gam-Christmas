@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2823812741486664729}
   - component: {fileID: 5077418155788902455}
   - component: {fileID: 7631893356669276066}
+  - component: {fileID: -5816865259856639704}
   m_Layer: 0
   m_Name: Mid_Roof_Short_Center.003
   m_TagString: Untagged
@@ -85,3 +86,25 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &-5816865259856639704
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2682303922644199857}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8222720910656466527, guid: b1cde74f3fc8ae140b36b09ba71e2a8b, type: 3}
