@@ -6,6 +6,8 @@ namespace Game.Core
 {
     public class Constants
     {
+        public const string MAIN_MENU_SCENE_NAME = "MainMenuScene";
+        public const string LEVEL_SCENE_NAME = "LevelScene";
         public const string MUSIC_VOLUME = "musicVol";
         public const string SFX_VOLUME = "sfxVol";
 

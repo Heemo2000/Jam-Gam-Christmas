@@ -8,7 +8,7 @@ namespace Game.UI
     {
         [SerializeField]
         private Page initialPage;
-    
+        [SerializeField]private bool showPageCount = false;
         private Stack<Page> pageStack;
 
         public int PageCount { get=> pageStack.Count; }
@@ -22,6 +22,14 @@ namespace Game.UI
             {
                 PushPage(initialPage);
             }
+        }
+
+        private void Update() 
+        {
+            if(showPageCount)
+            {
+                Debug.Log("Page Count: " + PageCount);
+            }    
         }
 
         public bool IsPageInStack(Page page)
@@ -41,7 +49,11 @@ namespace Game.UI
                 Debug.LogError("Page is null!");
                 return;
             }
-            
+            if(IsPageOnTopOfStack(page))
+            {
+                Debug.LogWarning("Cannot push same page over the top again.");
+                return;
+            }
             if(!page.gameObject.activeInHierarchy)
             {
                 page.gameObject.SetActive(true);

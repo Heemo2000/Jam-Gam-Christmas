@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using Game.SoundManagement;
 
@@ -10,17 +11,38 @@ namespace Game.UI
     public class SquashStretchButton : MonoBehaviour
     {
         [SerializeField]private SoundData pressSound;
-        private Button _button;
-        private SquashStretchEffect _squashEffect;
+        private Button button;
+        private SquashStretchEffect squashEffect;
+
+        public void AddListener(UnityAction call)
+        {
+            if(squashEffect == null)
+            {
+                squashEffect = GetComponent<SquashStretchEffect>();
+            }
+            squashEffect.OnEndEffect.AddListener(call);
+        }
+        private void PlayClickSound()
+        {
+            if(SoundManager.Instance != null && pressSound != null && pressSound.clip != null)
+            {
+                SoundManager.Instance.Play(pressSound, Vector3.zero, true);
+            }
+            else
+            {
+                Debug.LogError("Error while playing click sound!");
+            }
+            
+        }
         private void Awake() {
-            _button = GetComponent<Button>();
-            _squashEffect = GetComponent<SquashStretchEffect>();
+            button = GetComponent<Button>();
+            squashEffect = GetComponent<SquashStretchEffect>();
         }
         // Start is called before the first frame update
         void Start()
         {
-            _button.onClick.AddListener(_squashEffect.PlayEffect);
-            _button.onClick.AddListener(()=> SoundManager.Instance.Play(pressSound, Vector3.zero, true));
+            button.onClick.AddListener(squashEffect.PlayEffect);
+            button.onClick.AddListener(PlayClickSound);
         }
     }
 }

@@ -14,8 +14,10 @@ namespace Game.Core
 
         [Min(0.01f)]
         [SerializeField]private float jumpPressedTime = 0.1f;
+        [SerializeField]private Camera lookCamera;
 
         public Action OnPausePressed;
+        public Action OnInteractPressed;
         
         private PlayerInputActions playerInputActions;
         private bool sprintPressed = false;
@@ -25,6 +27,7 @@ namespace Game.Core
 
         public bool SprintPressed { get => sprintPressed; }
         public bool JumpPressed { get => jumpPressed; }
+        public Camera LookCamera { get => lookCamera; }
 
         public Vector2 GetSmoothLookDelta()
         {
@@ -77,6 +80,11 @@ namespace Game.Core
         {
             sprintPressed = false;
         }
+
+        private void OnInteraction(InputAction.CallbackContext context)
+        {
+            OnInteractPressed?.Invoke();
+        }
         
         private void Awake() 
         {
@@ -92,6 +100,7 @@ namespace Game.Core
             playerInputActions.PlayerActionMap.Pause.started += OnPausePress;
             playerInputActions.PlayerActionMap.Sprint.started += OnSprintPressed;
             playerInputActions.PlayerActionMap.Sprint.canceled += OnSprintReleased;
+            playerInputActions.PlayerActionMap.Interact.started += OnInteraction;
         }
 
         private void OnDestroy() 
@@ -102,6 +111,7 @@ namespace Game.Core
             playerInputActions.PlayerActionMap.Pause.started -= OnPausePress;
             playerInputActions.PlayerActionMap.Sprint.started -= OnSprintPressed;
             playerInputActions.PlayerActionMap.Sprint.canceled -= OnSprintReleased;
+            playerInputActions.PlayerActionMap.Interact.started -= OnInteraction;
         }
     }
 }

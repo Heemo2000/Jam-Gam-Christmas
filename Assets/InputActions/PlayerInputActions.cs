@@ -73,6 +73,15 @@ namespace Game.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""8e428997-f8bc-4c87-8704-719b25776a95"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -174,6 +183,17 @@ namespace Game.Input
                     ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""04b71333-b061-47c0-bf64-3d6b3a3e9062"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -187,6 +207,7 @@ namespace Game.Input
             m_PlayerActionMap_Pause = m_PlayerActionMap.FindAction("Pause", throwIfNotFound: true);
             m_PlayerActionMap_Look = m_PlayerActionMap.FindAction("Look", throwIfNotFound: true);
             m_PlayerActionMap_Sprint = m_PlayerActionMap.FindAction("Sprint", throwIfNotFound: true);
+            m_PlayerActionMap_Interact = m_PlayerActionMap.FindAction("Interact", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -253,6 +274,7 @@ namespace Game.Input
         private readonly InputAction m_PlayerActionMap_Pause;
         private readonly InputAction m_PlayerActionMap_Look;
         private readonly InputAction m_PlayerActionMap_Sprint;
+        private readonly InputAction m_PlayerActionMap_Interact;
         public struct PlayerActionMapActions
         {
             private @PlayerInputActions m_Wrapper;
@@ -262,6 +284,7 @@ namespace Game.Input
             public InputAction @Pause => m_Wrapper.m_PlayerActionMap_Pause;
             public InputAction @Look => m_Wrapper.m_PlayerActionMap_Look;
             public InputAction @Sprint => m_Wrapper.m_PlayerActionMap_Sprint;
+            public InputAction @Interact => m_Wrapper.m_PlayerActionMap_Interact;
             public InputActionMap Get() { return m_Wrapper.m_PlayerActionMap; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -286,6 +309,9 @@ namespace Game.Input
                 @Sprint.started += instance.OnSprint;
                 @Sprint.performed += instance.OnSprint;
                 @Sprint.canceled += instance.OnSprint;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
             }
 
             private void UnregisterCallbacks(IPlayerActionMapActions instance)
@@ -305,6 +331,9 @@ namespace Game.Input
                 @Sprint.started -= instance.OnSprint;
                 @Sprint.performed -= instance.OnSprint;
                 @Sprint.canceled -= instance.OnSprint;
+                @Interact.started -= instance.OnInteract;
+                @Interact.performed -= instance.OnInteract;
+                @Interact.canceled -= instance.OnInteract;
             }
 
             public void RemoveCallbacks(IPlayerActionMapActions instance)
@@ -329,6 +358,7 @@ namespace Game.Input
             void OnPause(InputAction.CallbackContext context);
             void OnLook(InputAction.CallbackContext context);
             void OnSprint(InputAction.CallbackContext context);
+            void OnInteract(InputAction.CallbackContext context);
         }
     }
 }

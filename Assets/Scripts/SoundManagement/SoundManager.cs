@@ -28,6 +28,19 @@ namespace Game.SoundManagement
         private readonly List<SoundEmitter> activeSoundEmitters = new();
         public readonly LinkedList<SoundEmitter> frequentSoundEmitters = new();
         
+        public float GetMusicVolume()
+        {
+            float result = 0.0f;
+            musicAudioMixer.GetFloat(Constants.MUSIC_VOLUME, out result);
+            return result;
+        }
+
+        public float GetSFXVolume()
+        {
+            float result = 0.0f;
+            sfxAudioMixer.GetFloat(Constants.SFX_VOLUME, out result);
+            return result;
+        }
         public void SetMusicVolume(float amount)
         {
             musicAudioMixer.SetFloat(Constants.MUSIC_VOLUME, amount);
@@ -54,6 +67,16 @@ namespace Game.SoundManagement
             }
         }
 
+        public void SetPauseStatus(SoundData soundData, bool value)
+        {
+            foreach(SoundEmitter emitter in activeSoundEmitters)
+            {
+                if(emitter.Data == soundData)
+                {
+                    emitter.SetPauseStatus(value);
+                }
+            }
+        }
         
 
         public void Stop(SoundData soundData)
@@ -172,6 +195,13 @@ namespace Game.SoundManagement
         private void OnDestroyPoolObject(SoundEmitter soundEmitter)
         {
             Destroy(soundEmitter.gameObject);
+        }
+
+        private void OnApplicationFocus(bool focusStatus) {
+            foreach(SoundEmitter soundEmitter in activeSoundEmitters)
+            {
+                soundEmitter.SetPauseStatus(!focusStatus);
+            }
         }
     }
 }

@@ -10,13 +10,9 @@ namespace Game.Gameplay
         
         [Header("Ground Settings: ")]
         [SerializeField]private LayerMask groundMask;
-        [SerializeField]private Transform groundCheck;
+        [SerializeField]private Transform[] groundChecks;
         [SerializeField]private float groundCheckRadius = 0.1f;
-        [Header("Gravity Settings")]
-
-        [Range(0.0f, 20.0f)]
-        [SerializeField]private float gravity = 10.0f;
-
+        [Header("Gravity Settings: ")]
         [Min(0.0f)]
         [SerializeField]private float fallMultiplier = 1.0f;
 
@@ -26,11 +22,14 @@ namespace Game.Gameplay
         [Header("Jump Settings: ")]
         [Min(1.0f)]
         [SerializeField]private float jumpHeight = 5.0f;
+        [Min(0.1f)]
+        [SerializeField]private float jumpTime = 1.0f;
 
         private float velocityY = 0.0f;
         private CharacterController controller;
 
         private float initialJumpVelocity = 0.0f;
+        private float gravity = 0.0f;
 
         public float JumpHeight { get => jumpHeight; set => jumpHeight = value; }
 
@@ -86,8 +85,10 @@ namespace Game.Gameplay
                 }
             }
             */
-             
-            controller.Move((moveVector * moveSpeed + Vector3.up * velocityY) * Time.fixedDeltaTime);
+            
+            Vector3 horizontalMovement = moveVector * moveSpeed * Time.fixedDeltaTime;
+            Vector3 verticalMovement = Vector3.up * velocityY * Time.fixedDeltaTime;
+            controller.Move(horizontalMovement + verticalMovement);
             
             float targetRotationY = lookInputX * rotationSpeed;
             transform.Rotate(Vector3.up * targetRotationY);
@@ -99,16 +100,25 @@ namespace Game.Gameplay
         }
         public void CalculateParameters()
         {
-            if(!allowGravity)
+            float halfJumpTime = jumpTime/2.0f;
+            if(allowGravity)
             {
-                return;
+                gravity = (2.0f * jumpHeight) / (halfJumpTime * halfJumpTime);    
             }
+            else
+            {
+                gravity = 0.0f;
+            }
+            
+            initialJumpVelocity = 2.0f * jumpHeight/halfJumpTime;
+
             bool isFalling = velocityY < 0.0f;
     
+            float currentGravity = gravity;
+
             if(!IsGrounded())
             {
                 float currentVelocityY = velocityY;
-                float currentGravity = gravity;
                 
                 if(isFalling)
                 {
@@ -122,12 +132,19 @@ namespace Game.Gameplay
             {
                 velocityY = 0f;
             }
-
-            initialJumpVelocity = Mathf.Sqrt(2.0f * gravity * jumpHeight);
         }
         public bool IsGrounded()
         {
-            return Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundMask.value);
+            bool result = false;
+            foreach(Transform groundCheck in groundChecks)
+            {
+                if(groundCheck == null)
+                {
+                    continue;
+                }
+                result |= Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundMask.value);
+            }
+            return result;
         }
         
         private void Awake() 
@@ -139,15 +156,37 @@ namespace Game.Gameplay
             initialJumpVelocity = Mathf.Sqrt(2.0f * gravity * jumpHeight);
         }
 
+        private void OnEnable() {
+            if(controller != null)
+            {
+                controller.enabled = true;
+            }
+        }
+
+        private void OnDisable() 
+        {
+            if(controller != null)
+            {
+                controller.enabled = false;
+            }    
+        }
+
         private void OnDrawGizmosSelected() 
         {
-            if(groundCheck == null)
+            if(groundChecks == null)
             {
                 return;
             }
 
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);    
+            foreach(Transform groundCheck in groundChecks)
+            {
+                if(groundCheck == null)
+                {
+                    continue;
+                }
+                Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+            }
         }
     }
 }

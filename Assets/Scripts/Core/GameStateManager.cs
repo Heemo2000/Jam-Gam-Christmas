@@ -8,6 +8,11 @@ namespace Game.Core
         private GameState currentGameState = GameState.None;
         public UnityEvent<GameState> OnGameStateChanged;
 
+
+        public void PassGame()
+        {
+            SetState(GameState.GamePassed);
+        }
         public void EndGame()
         {
             SetState(GameState.GameOver);
@@ -26,6 +31,11 @@ namespace Game.Core
         public bool IsGameOver()
         {
             return currentGameState == GameState.GameOver;
+        }
+
+        public bool IsGamePassed()
+        {
+            return currentGameState == GameState.GamePassed;
         }
 
         protected override void InternalInit()

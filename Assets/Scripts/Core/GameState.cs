@@ -9,6 +9,7 @@ namespace Game.Core
         None,
         UnPaused,
         Paused,
+        GamePassed,
         GameOver
     }
 }

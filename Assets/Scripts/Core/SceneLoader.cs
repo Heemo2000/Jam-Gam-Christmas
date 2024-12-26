@@ -4,30 +4,34 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-public class SceneLoader : MonoBehaviour
+namespace Game.Core
 {
-    public UnityEvent<float> OnSceneLoading;
-    private Coroutine _sceneCoroutine;
-
-    public void LoadScene(string sceneName)
+    public class SceneLoader : MonoBehaviour
     {
-        if(_sceneCoroutine == null)
-        {
-            _sceneCoroutine = StartCoroutine(LoadSceneAsync(sceneName));
-        }
-    }
-    
+        public UnityEvent<float> OnSceneLoading;
+        private Coroutine _sceneCoroutine;
 
-    private IEnumerator LoadSceneAsync(string sceneName)
-    {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
-
-        while(!asyncLoad.isDone)
+        public void LoadScene(string sceneName)
         {
-            OnSceneLoading?.Invoke(asyncLoad.progress);
-            yield return null;
+            if(_sceneCoroutine == null)
+            {
+                _sceneCoroutine = StartCoroutine(LoadSceneAsync(sceneName));
+            }
         }
 
-        _sceneCoroutine = null;
+
+        private IEnumerator LoadSceneAsync(string sceneName)
+        {
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
+
+            while(!asyncLoad.isDone)
+            {
+                OnSceneLoading?.Invoke(asyncLoad.progress);
+                yield return null;
+            }
+
+            _sceneCoroutine = null;
+        }
     }
 }
+
