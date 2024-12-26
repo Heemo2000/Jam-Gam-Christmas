@@ -63,7 +63,7 @@ namespace Game.SoundManagement
             }
         }
 
-        public void setPauseStatus(bool value)
+        public void SetPauseStatus(bool value)
         {
             isPaused = value;
             if(value)

@@ -15,7 +15,7 @@ namespace Game.UI
         [SerializeField]private AnimationCurve yScaleCurve;
         [SerializeField]private Vector2 maxScale = new Vector2(2.0f, 2.0f);
 
-        [SerializeField]private UnityEvent OnEndEffect;
+        public UnityEvent OnEndEffect;
         private RectTransform _rect;
 
         private Coroutine _effectCoroutine;
