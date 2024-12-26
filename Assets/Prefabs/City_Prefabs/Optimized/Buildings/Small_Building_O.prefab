@@ -64,6 +64,7 @@ GameObject:
   - component: {fileID: 1203935004530403037}
   - component: {fileID: 2732964335500553993}
   - component: {fileID: 5499527511870783051}
+  - component: {fileID: -4755188866269451455}
   m_Layer: 7
   m_Name: Small_Building_O
   m_TagString: Untagged
@@ -149,6 +150,26 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &-4755188866269451455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6231538030382523064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30481afba7a11444b9e473b5040b1755, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalCandyCanePrefab: {fileID: 8698185409105866302, guid: 909dbc62bb0d6444aaf531d6dc6891a3,
+    type: 3}
+  movingCandyCanePrefab: {fileID: 6738252960447529822, guid: e8410ae40eb6fca4fab860a7916db136,
+    type: 3}
+  respawnCandyCanePrefab: {fileID: 4404288449475243479, guid: 185d8e69ad2015d4c956e05246c74ec3,
+    type: 3}
+  spawnPoints: []
+  acceptSpawnPointProb: 0.4
 --- !u!1 &7312435059406517616
 GameObject:
   m_ObjectHideFlags: 0
