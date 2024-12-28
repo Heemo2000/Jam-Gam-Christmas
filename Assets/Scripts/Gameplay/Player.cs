@@ -61,11 +61,8 @@ namespace Game.Gameplay
         private Vector2 normalLookDelta;
         private Vector2 smoothLookDelta;
         private float currentSpeed = 0.0f;
-
-        private bool shouldMove = true;
-
         private Coroutine giftCoroutine;
-
+        private bool allowNormalMovement = false;
 
         private void HandleJump()
         {
@@ -91,8 +88,7 @@ namespace Game.Gameplay
 
         private void OnStartRespawning()
         {
-            shouldMove = false;
-            movement.enabled = false;
+            allowNormalMovement = false;
         }
 
         private void OnDuringRespawning(Vector3 position)
@@ -102,7 +98,7 @@ namespace Game.Gameplay
         }
         private void OnEndRespawning()
         {
-            shouldMove = true;
+            allowNormalMovement = true;
         }
 
         private void HandleInteractions()
@@ -175,7 +171,7 @@ namespace Game.Gameplay
                 
                 delta += tossSpeed * Time.fixedDeltaTime;
             }
-            
+            GameplayHandler.Instance.IncreaseGiftGivenCounter();
             giftCoroutine = null;
         }
 
@@ -190,15 +186,18 @@ namespace Game.Gameplay
             gameInput.gameObject.SetActive(true);
             gameInput.enabled = true;
             gameInput.OnInteractPressed += HandleInteractions;
+            allowNormalMovement = true;
         }
 
         private void Update() 
         {
-            if(GameStateManager.Instance != null && (GameStateManager.Instance.IsGamePaused() == true || GameStateManager.Instance.IsGameOver() == true))
+            if(GameStateManager.Instance != null && 
+              GameStateManager.Instance.IsGameUnpaused() == false)
             {
-                shouldMove = false;
+                return;
             }
-            if(!shouldMove)
+            
+            if(!allowNormalMovement)
             {
                 return;
             }
@@ -221,15 +220,16 @@ namespace Game.Gameplay
         private void FixedUpdate() 
         {
             if(GameStateManager.Instance != null && 
-              (GameStateManager.Instance.IsGamePaused() || GameStateManager.Instance.IsGameOver() || GameStateManager.Instance.IsGamePassed()))
-            {
-                shouldMove = false;
-            }
-
-            if(!shouldMove)
+              GameStateManager.Instance.IsGameUnpaused() == false)
             {
                 return;
             }
+
+            if(!allowNormalMovement)
+            {
+                return;
+            }
+
             Vector2 moveInput = gameInput.GetMovementInputNormalized();
             Vector2 lookDelta = gameInput.GetSmoothLookDelta();
             //Debug.Log("Look delta: " + lookDelta);
@@ -239,11 +239,22 @@ namespace Game.Gameplay
 
         private void OnControllerColliderHit(ControllerColliderHit hit) 
         {
+            if(GameStateManager.Instance != null && GameStateManager.Instance.IsGameUnpaused() == false)
+            {
+                return;
+            }
+
             //Debug.Log("Colliding with " + hit.gameObject.name);
             int layerMask = 1 << hit.gameObject.layer;
             
-            if(allowGameOver && (deadZoneMask.value & layerMask) != 0)
+            if(allowGamePassed && (gamePassedMask.value & layerMask) != 0)
             {
+                GameStateManager.Instance.PassGame();
+                return;
+            }
+            else if(allowGameOver && (deadZoneMask.value & layerMask) != 0)
+            {
+                //Debug.Log("Found dead zone.");
                 if(RespawnManager.Instance.SpawnCount > 0)
                 {
                     RespawnManager.Instance.DecreaseSpawnCount();
@@ -254,11 +265,7 @@ namespace Game.Gameplay
                 {
                     GameStateManager.Instance.EndGame();
                 }
-                
-            }
-            else if(allowGamePassed && (gamePassedMask.value & layerMask) != 0)
-            {
-                GameStateManager.Instance.PassGame();
+                return;
             }
             else if(!touchCandies || (collectableMask.value & layerMask) == 0)
             {

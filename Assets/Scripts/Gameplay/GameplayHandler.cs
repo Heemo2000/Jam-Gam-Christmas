@@ -9,7 +9,7 @@ using UnityEngine.UI;
 using TMPro;
 namespace Game.Gameplay
 {
-    public class GameplayHandler : MonoBehaviour
+    public class GameplayHandler : MonoSingelton<GameplayHandler>
     {
         [Header("UI Settings: ")]
         [SerializeField]private UIManager uiManager;
@@ -66,7 +66,6 @@ namespace Game.Gameplay
                 case GameState.UnPaused:
                                         if(uiManager.PageCount == 0)
                                         {
-                                            SoundManager.Instance.Play(inGameMusicData, Vector3.zero);
                                             uiManager.PushPage(gameplayPage);
                                         }
                                         else if(uiManager.IsPageOnTopOfStack(pausePage))
@@ -119,6 +118,7 @@ namespace Game.Gameplay
         {
             loadingPage.OnPostPushAction.RemoveAllListeners();
             loadingPage.OnPostPopAction.AddListener(()=> sceneLoader.LoadScene(Constants.MAIN_MENU_SCENE_NAME));
+            uiManager.PushPage(loadingPage);
         }
 
         private void Setup()
@@ -166,18 +166,10 @@ namespace Game.Gameplay
             }
 
             currentGiftsGivenCount = 0;
-            giftGivenText.text = currentGiftsGivenCount + "/" + maxGiftsToGive;
+            giftGivenText.text = currentGiftsGivenCount + "/" + maxGiftsToGive + " Presents Delivered";
             gamePassedRegion.SetActive(false);
             GameStateManager.Instance.OnGameStateChanged.AddListener(HandleInGameBehaviour);
-        }
-
-        private void Awake() {
-            stopwatch = new Stopwatch();
-        }
-        // Start is called before the first frame update
-        void Start()
-        {
-            Setup();
+            //Random.InitState((int)System.DateTime.Now.Ticks);
         }
 
         // Update is called once per frame
@@ -187,6 +179,7 @@ namespace Game.Gameplay
             {
                 stopwatch.Reset();
                 stopwatch.Start();
+                SoundManager.Instance.Play(inGameMusicData, Vector3.zero);
                 shouldStartTimer = true;
             }
 
@@ -194,6 +187,21 @@ namespace Game.Gameplay
             {
                 gameplayTimerText.text = GetTime();
             }
+        }
+
+        protected override void InternalInit()
+        {
+            stopwatch = new Stopwatch();
+        }
+
+        protected override void InternalOnStart()
+        {
+            Setup();
+        }
+
+        protected override void InternalOnDestroy()
+        {
+            
         }
     }
 }

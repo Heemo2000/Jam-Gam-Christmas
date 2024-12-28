@@ -38,6 +38,11 @@ namespace Game.Core
             return currentGameState == GameState.GamePassed;
         }
 
+        public bool IsGameUnpaused()
+        {
+            return currentGameState == GameState.UnPaused;
+        }
+
         protected override void InternalInit()
         {
             currentGameState = GameState.None;    
