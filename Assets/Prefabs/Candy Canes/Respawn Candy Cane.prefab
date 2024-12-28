@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6591697582157160672}
   - component: {fileID: 4404288449475243479}
   - component: {fileID: 1148854831588944927}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Respawn Candy Cane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -67,8 +67,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1.2, z: 1}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1001 &4180675922093983257
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -100,7 +100,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 0b95a35dee33c6c4490986c8d74dc2cf,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0b95a35dee33c6c4490986c8d74dc2cf,
         type: 3}
@@ -152,6 +152,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CandyCane
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0b95a35dee33c6c4490986c8d74dc2cf,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -171,10 +176,53 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6591697582157160672}
     m_Modifications:
+    - target: {fileID: 166878095, guid: 2f2d4e6b133dd204b98d767461befc6d, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 681437323, guid: 2f2d4e6b133dd204b98d767461befc6d, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 537683330278772309, guid: 2f2d4e6b133dd204b98d767461befc6d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2026220481953196073, guid: 2f2d4e6b133dd204b98d767461befc6d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2582769538373454707, guid: 2f2d4e6b133dd204b98d767461befc6d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3227434457127917242, guid: 2f2d4e6b133dd204b98d767461befc6d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3227434458930926660, guid: 2f2d4e6b133dd204b98d767461befc6d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5043167618034127217, guid: 2f2d4e6b133dd204b98d767461befc6d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5043167619198549530, guid: 2f2d4e6b133dd204b98d767461befc6d,
         type: 3}
       propertyPath: m_Name
       value: VFX_ItemRare
+      objectReference: {fileID: 0}
+    - target: {fileID: 5043167619198549530, guid: 2f2d4e6b133dd204b98d767461befc6d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5043167619198549543, guid: 2f2d4e6b133dd204b98d767461befc6d,
         type: 3}
@@ -184,7 +232,7 @@ PrefabInstance:
     - target: {fileID: 5043167619198549543, guid: 2f2d4e6b133dd204b98d767461befc6d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.58
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 5043167619198549543, guid: 2f2d4e6b133dd204b98d767461befc6d,
         type: 3}
@@ -225,6 +273,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8658523701241452773, guid: 2f2d4e6b133dd204b98d767461befc6d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

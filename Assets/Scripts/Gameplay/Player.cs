@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Game.Core;
 using Game.CameraManagement;
+using Game.SoundManagement;
 
 namespace Game.Gameplay
 {
@@ -29,6 +30,7 @@ namespace Game.Gameplay
         
         [Header("Collectable Settings: ")]
         [SerializeField]private LayerMask collectableMask;
+        [SerializeField]private SoundData muchingSoundData;
 
         [Header("Game Over Settings: ")]
         [SerializeField]private LayerMask deadZoneMask;
@@ -43,8 +45,15 @@ namespace Game.Gameplay
         [SerializeField]private float maxCheckRadius = 2.0f;
         [SerializeField]private AnimationCurve tossAnimCurve;
         [SerializeField]private GameObject[] gifts;
+        [SerializeField]private SoundData tossGiftSoundData;
         [Min(1.0f)]
         [SerializeField]private float tossSpeed = 5.0f;
+        [SerializeField]private float maxTossHeight = 2.0f;
+        [Header("Feature Flags: ")]
+        [SerializeField]private bool touchCandies = false;
+        [SerializeField]private bool interactWithPillars = false;
+        [SerializeField]private bool allowGameOver = false;
+        [SerializeField]private bool allowGamePassed = false;
 
         private GameInput gameInput;
         private CharacterMovement movement;
@@ -98,34 +107,75 @@ namespace Game.Gameplay
 
         private void HandleInteractions()
         {
-            Ray ray = gameInput.LookCamera.ScreenPointToRay(new Vector3(Screen.width/2.0f, Screen.height/2.0f));
+            if(!interactWithPillars)
+            {
+                return;
+            }
+            
+            //Debug.Log("Trying to find gift receivers");
 
-            if(Physics.SphereCast(ray, maxCheckRadius, out RaycastHit hit, maxCheckDistance, interactMask.value))
+            //Debug.DrawLine(cameraController.transform.position, cameraController.transform.position + cameraController.transform.forward * maxCheckDistance, Color.green, 2.0f);
+            
+            if(Physics.SphereCast(cameraController.transform.position, maxCheckRadius, 
+                                  cameraController.transform.forward, out RaycastHit hit, 
+                                  maxCheckDistance, interactMask.value))
             {
                 if(!hit.transform.TryGetComponent<GiftReceiver>(out GiftReceiver giftReceiver))
                 {
+                    //Debug.Log("Can't find gift receiver");
                     return;
                 }
-
-                if(giftCoroutine == null)
+                //Debug.Log("Found Gift receiver");
+                if(giftReceiver.ShouldReceiveGifts && giftCoroutine == null)
                 {
-                    giftCoroutine = StartCoroutine(GiftCoroutine(transform.position, giftReceiver.ReceivePosition));
+                    giftCoroutine = StartCoroutine(GiftCoroutine(giftReceiver));
                 }    
+            }
+            else
+            {
+                //Debug.Log("Can't find anything");
             }   
         }
 
-        private IEnumerator GiftCoroutine(Vector3 start, Vector3 end)
+        private IEnumerator GiftCoroutine(GiftReceiver giftReceiver)
         {
+            giftReceiver.ShouldReceiveGifts = false;
+            Vector3 start = transform.position;
+            Vector3 end = giftReceiver.ReceivePosition;
             GameObject gift = Instantiate(gifts[Random.Range(0, gifts.Length)], start, Quaternion.identity);
             float delta = 0.0f;
             while(delta <= 1.0f)
             {
+                //Debug.Log("Tossing");
                 Vector3 lerpedPosition = Vector3.Lerp(start, end, delta);
-                lerpedPosition.y += tossAnimCurve.Evaluate(delta);
+                lerpedPosition.y += tossAnimCurve.Evaluate(delta) * maxTossHeight;
+                gift.transform.position = lerpedPosition;
                 delta += tossSpeed * Time.fixedDeltaTime;
                 yield return null;
             }
 
+            start = giftReceiver.ReceivePosition;
+            end = giftReceiver.transform.position;
+
+            
+            SoundManager.Instance.Play(tossGiftSoundData, start);
+            //Vector3 startScale = Vector3.one;
+            //Vector3 endScale = Vector3.one * 0.5f;
+            delta = 0.0f;
+            while(delta <= 1.0f)
+            {
+                //Debug.Log("Going");
+                Vector3 lerpedPosition = Vector3.Lerp(start, end, delta);
+                //Vector3 lerpedScale = Vector3.Lerp(startScale, endScale, delta);
+
+                gift.transform.position = lerpedPosition;
+                
+                //Debug.Log("Lerped Position: " + lerpedPosition);
+                //gift.transform.localScale = lerpedScale;
+                
+                delta += tossSpeed * Time.fixedDeltaTime;
+            }
+            
             giftCoroutine = null;
         }
 
@@ -189,9 +239,10 @@ namespace Game.Gameplay
 
         private void OnControllerColliderHit(ControllerColliderHit hit) 
         {
+            //Debug.Log("Colliding with " + hit.gameObject.name);
             int layerMask = 1 << hit.gameObject.layer;
             
-            if((deadZoneMask.value & layerMask) != 0)
+            if(allowGameOver && (deadZoneMask.value & layerMask) != 0)
             {
                 if(RespawnManager.Instance.SpawnCount > 0)
                 {
@@ -205,21 +256,22 @@ namespace Game.Gameplay
                 }
                 
             }
-            else if((gamePassedMask.value & layerMask) != 0)
+            else if(allowGamePassed && (gamePassedMask.value & layerMask) != 0)
             {
                 GameStateManager.Instance.PassGame();
             }
-            else if((collectableMask.value & layerMask) == 0)
+            else if(!touchCandies || (collectableMask.value & layerMask) == 0)
             {
                 return;
             }
 
-            CandyCane candyCane = hit.transform.GetComponent<CandyCane>();
-            if(candyCane == null)
+            if(!hit.transform.TryGetComponent<CandyCane>(out var candyCane))
             {
                 Debug.LogError("Cannot find candy cane, please check collectableMask in Player!");
                 return;
-            }   
+            }
+
+            SoundManager.Instance.Play(muchingSoundData, hit.transform.position, true);   
             var data = candyCane.Data;
 
             switch(data.type)
@@ -236,6 +288,9 @@ namespace Game.Gameplay
                                                     RespawnManager.Instance.IncreaseSpawnCount();
                                                     break;
             }
+
+            Destroy(candyCane.gameObject);
+            
         }
     }
 }

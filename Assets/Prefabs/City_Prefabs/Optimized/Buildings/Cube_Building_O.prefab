@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8024684393484553871}
   - component: {fileID: 672609601031030682}
-  m_Layer: 7
-  m_Name: Collider (4)
+  - component: {fileID: 8698509848533474972}
+  m_Layer: 9
+  m_Name: Chimney
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -53,6 +54,23 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.2, y: 2.4, z: 1.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8698509848533474972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1368498501779704159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d850300f91be944782923aa653a003b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: {x: 0, y: 3, z: 0}
+  shouldReceiveGifts: 1
+  arrowPrefab: {fileID: 8398690536455960983, guid: 738354f2630c664429ecf51184ac93b2,
+    type: 3}
+  arrowRotationSpeed: 10
 --- !u!1 &1593977439887102895
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,7 +189,7 @@ GameObject:
   m_Layer: 7
   m_Name: Spawn Point
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -184,7 +202,7 @@ Transform:
   m_GameObject: {fileID: 1930101723427380985}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.4, y: 9.61, z: 1.52}
+  m_LocalPosition: {x: -11.4, y: 9.997, z: 1.52}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -202,7 +220,7 @@ GameObject:
   m_Layer: 7
   m_Name: Spawn Point (4)
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -215,7 +233,7 @@ Transform:
   m_GameObject: {fileID: 2088933247308142219}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.026, y: 15.987, z: -9.68}
+  m_LocalPosition: {x: -12.026, y: 16.039, z: -9.68}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -354,7 +372,8 @@ MonoBehaviour:
   - {fileID: 3028872622705732665}
   - {fileID: 543449665701644147}
   - {fileID: 6290439062307677250}
-  acceptSpawnPointProb: 0.4
+  minAcceptSpawnPointProb: 0.5
+  generateCandies: 0
 --- !u!1 &3543863939068196536
 GameObject:
   m_ObjectHideFlags: 0
@@ -367,7 +386,7 @@ GameObject:
   m_Layer: 7
   m_Name: Spawn Point (3)
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -380,7 +399,7 @@ Transform:
   m_GameObject: {fileID: 3543863939068196536}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.724, y: 15.987, z: -9.68}
+  m_LocalPosition: {x: 0.724, y: 16.046, z: -9.68}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -451,7 +470,7 @@ GameObject:
   m_Layer: 7
   m_Name: Spawn Point (2)
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -464,7 +483,7 @@ Transform:
   m_GameObject: {fileID: 4219639998562984409}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.34, y: 16.35, z: -12.16}
+  m_LocalPosition: {x: -5.34, y: 16.17, z: -12.16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -482,7 +501,7 @@ GameObject:
   m_Layer: 7
   m_Name: Spawn Point (1)
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -495,7 +514,7 @@ Transform:
   m_GameObject: {fileID: 5263004508883668929}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.34, y: 14.99, z: -2.53}
+  m_LocalPosition: {x: -5.34, y: 15.243, z: -2.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

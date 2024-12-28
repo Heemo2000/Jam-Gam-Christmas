@@ -94,12 +94,15 @@ namespace Game.Core
         // Start is called before the first frame update
         void Start()
         {
+            lookCamera = FindObjectOfType<Camera>();
             playerInputActions.Enable();
             playerInputActions.PlayerActionMap.Jump.Enable();
             playerInputActions.PlayerActionMap.Jump.started += OnJumpPressed;
             playerInputActions.PlayerActionMap.Pause.started += OnPausePress;
             playerInputActions.PlayerActionMap.Sprint.started += OnSprintPressed;
             playerInputActions.PlayerActionMap.Sprint.canceled += OnSprintReleased;
+
+            playerInputActions.PlayerActionMap.Interact.Enable();
             playerInputActions.PlayerActionMap.Interact.started += OnInteraction;
         }
 
@@ -111,6 +114,8 @@ namespace Game.Core
             playerInputActions.PlayerActionMap.Pause.started -= OnPausePress;
             playerInputActions.PlayerActionMap.Sprint.started -= OnSprintPressed;
             playerInputActions.PlayerActionMap.Sprint.canceled -= OnSprintReleased;
+
+            playerInputActions.PlayerActionMap.Interact.Disable();
             playerInputActions.PlayerActionMap.Interact.started -= OnInteraction;
         }
     }

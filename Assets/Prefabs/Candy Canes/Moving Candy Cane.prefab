@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3388020153586091800}
   - component: {fileID: 6738252960447529822}
   - component: {fileID: 7561239053177275673}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Moving Candy Cane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -67,8 +67,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1.2, z: 1}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1001 &3975911626291266229
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -77,10 +77,74 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3388020153586091800}
     m_Modifications:
+    - target: {fileID: 1360908374, guid: b4f9efd16e8b5c04c91abcf7f00f5166, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 162169000469009788, guid: b4f9efd16e8b5c04c91abcf7f00f5166,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 359743567011865467, guid: b4f9efd16e8b5c04c91abcf7f00f5166,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 963157225110817355, guid: b4f9efd16e8b5c04c91abcf7f00f5166,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 963157225571682485, guid: b4f9efd16e8b5c04c91abcf7f00f5166,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2420672631197418880, guid: b4f9efd16e8b5c04c91abcf7f00f5166,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2420672631757338244, guid: b4f9efd16e8b5c04c91abcf7f00f5166,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2801741226449064026, guid: b4f9efd16e8b5c04c91abcf7f00f5166,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3114359274881179417, guid: b4f9efd16e8b5c04c91abcf7f00f5166,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4412942407196275171, guid: b4f9efd16e8b5c04c91abcf7f00f5166,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4434181016840238630, guid: b4f9efd16e8b5c04c91abcf7f00f5166,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5254587084890224773, guid: b4f9efd16e8b5c04c91abcf7f00f5166,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7235906724420313109, guid: b4f9efd16e8b5c04c91abcf7f00f5166,
         type: 3}
       propertyPath: m_Name
       value: VFX_ItemEpic
+      objectReference: {fileID: 0}
+    - target: {fileID: 7235906724420313109, guid: b4f9efd16e8b5c04c91abcf7f00f5166,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7235906724420313128, guid: b4f9efd16e8b5c04c91abcf7f00f5166,
         type: 3}
@@ -90,7 +154,7 @@ PrefabInstance:
     - target: {fileID: 7235906724420313128, guid: b4f9efd16e8b5c04c91abcf7f00f5166,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.646
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7235906724420313128, guid: b4f9efd16e8b5c04c91abcf7f00f5166,
         type: 3}
@@ -131,6 +195,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7235906725383458686, guid: b4f9efd16e8b5c04c91abcf7f00f5166,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7745470791341294373, guid: b4f9efd16e8b5c04c91abcf7f00f5166,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -174,7 +248,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 0b95a35dee33c6c4490986c8d74dc2cf,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0b95a35dee33c6c4490986c8d74dc2cf,
         type: 3}
@@ -225,6 +299,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CandyCane
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0b95a35dee33c6c4490986c8d74dc2cf,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

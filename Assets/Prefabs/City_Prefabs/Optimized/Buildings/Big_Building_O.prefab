@@ -224,7 +224,7 @@ GameObject:
   m_Layer: 7
   m_Name: Spawn Point (3)
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -237,7 +237,7 @@ Transform:
   m_GameObject: {fileID: 2073541903583310513}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 19.48, y: 30.21, z: -19.32}
+  m_LocalPosition: {x: 19.48, y: 29.51, z: -19.32}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -467,7 +467,7 @@ GameObject:
   m_Layer: 7
   m_Name: Spawn Point (1)
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -480,7 +480,7 @@ Transform:
   m_GameObject: {fileID: 3453651612102087485}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.56, y: 21.86, z: -16.31}
+  m_LocalPosition: {x: 5.56, y: 22.05, z: -16.31}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -814,8 +814,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3972040368630433938}
   - component: {fileID: 5247732668538323440}
-  m_Layer: 7
-  m_Name: Collider
+  - component: {fileID: 7944521719924282412}
+  m_Layer: 9
+  m_Name: Chimney
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -857,6 +858,23 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.2, y: 3, z: 1.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7944521719924282412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5563164202853531799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d850300f91be944782923aa653a003b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: {x: 0, y: 3, z: 0}
+  shouldReceiveGifts: 0
+  arrowPrefab: {fileID: 8398690536455960983, guid: 738354f2630c664429ecf51184ac93b2,
+    type: 3}
+  arrowRotationSpeed: 10
 --- !u!1 &7131774010794019845
 GameObject:
   m_ObjectHideFlags: 0
@@ -1079,7 +1097,8 @@ MonoBehaviour:
   - {fileID: 8791392309868073326}
   - {fileID: 3490891545212577038}
   - {fileID: 6990696052117554735}
-  acceptSpawnPointProb: 0.4
+  minAcceptSpawnPointProb: 0.5
+  generateCandies: 0
 --- !u!1 &7544161695680012313
 GameObject:
   m_ObjectHideFlags: 0
@@ -1092,7 +1111,7 @@ GameObject:
   m_Layer: 7
   m_Name: Spawn Point (2)
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1105,7 +1124,7 @@ Transform:
   m_GameObject: {fileID: 7544161695680012313}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.56, y: 19.98, z: -28.06}
+  m_LocalPosition: {x: 5.56, y: 19.01, z: -28.06}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1176,7 +1195,7 @@ GameObject:
   m_Layer: 7
   m_Name: Spawn Point
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1189,7 +1208,7 @@ Transform:
   m_GameObject: {fileID: 8012793895065677883}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.9, y: 18.862, z: -1.98}
+  m_LocalPosition: {x: 3.9, y: 19.5, z: -1.98}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1260,7 +1279,7 @@ GameObject:
   m_Layer: 7
   m_Name: Spawn Point (4)
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1273,7 +1292,7 @@ Transform:
   m_GameObject: {fileID: 8228351782260940544}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 19.48, y: 27.87, z: -15.07}
+  m_LocalPosition: {x: 19.48, y: 28.68, z: -15.07}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1291,7 +1310,7 @@ GameObject:
   m_Layer: 7
   m_Name: Spawn Point (5)
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1

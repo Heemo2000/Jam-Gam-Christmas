@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using Game.SoundManagement;
+using System;
 
 namespace Game.UI
 {
@@ -21,6 +22,18 @@ namespace Game.UI
                 squashEffect = GetComponent<SquashStretchEffect>();
             }
             squashEffect.OnEndEffect.AddListener(call);
+        }
+
+        public void RemoveListener(UnityAction call)
+        {
+            try
+            {
+                squashEffect.OnEndEffect.RemoveListener(call);
+            }
+            catch(Exception exception)
+            {
+                Debug.LogError("Error while removing listener from OnEndEffect: " + exception.Message);
+            }
         }
         private void PlayClickSound()
         {

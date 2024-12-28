@@ -65,7 +65,7 @@ GameObject:
   m_Layer: 7
   m_Name: Spawn Point (1)
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -78,7 +78,7 @@ Transform:
   m_GameObject: {fileID: 1433314531361064341}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -21.34, y: 16.2, z: -3.8}
+  m_LocalPosition: {x: -21.34, y: 16.405, z: -3.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -96,7 +96,7 @@ GameObject:
   m_Layer: 7
   m_Name: Spawn Point (2)
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -125,8 +125,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1501872256746446264}
   - component: {fileID: 2776139553389228688}
-  m_Layer: 7
-  m_Name: Collider (6)
+  - component: {fileID: 7155829419024590600}
+  m_Layer: 9
+  m_Name: Chimney
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -168,6 +169,23 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.2, y: 3, z: 1.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7155829419024590600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3554965004536224030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d850300f91be944782923aa653a003b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: {x: 0, y: 3, z: 0}
+  shouldReceiveGifts: 0
+  arrowPrefab: {fileID: 8398690536455960983, guid: 738354f2630c664429ecf51184ac93b2,
+    type: 3}
+  arrowRotationSpeed: 10
 --- !u!1 &3758311399678275561
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,7 +198,7 @@ GameObject:
   m_Layer: 7
   m_Name: Spawn Point (3)
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -264,7 +282,7 @@ GameObject:
   m_Layer: 7
   m_Name: Spawn Point
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -421,7 +439,8 @@ MonoBehaviour:
   - {fileID: 2309337630532330550}
   - {fileID: 3611317530877780380}
   - {fileID: 2867204240885960334}
-  acceptSpawnPointProb: 0.4
+  minAcceptSpawnPointProb: 0.5
+  generateCandies: 0
 --- !u!1 &7022485342484801884
 GameObject:
   m_ObjectHideFlags: 0
@@ -487,7 +506,7 @@ GameObject:
   m_Layer: 0
   m_Name: Spawn Point
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -500,7 +519,7 @@ Transform:
   m_GameObject: {fileID: 7343229693479498480}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -32.7, y: 16.560001, z: -5.1}
+  m_LocalPosition: {x: -32.7, y: 17.108, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -569,8 +588,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2804978498745595205}
   - component: {fileID: 3364888943592508126}
-  m_Layer: 7
-  m_Name: Collider (7)
+  - component: {fileID: 4936005868299098739}
+  m_Layer: 9
+  m_Name: Chimney
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -612,6 +632,23 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.2, y: 3, z: 1.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4936005868299098739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7994345512749652138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d850300f91be944782923aa653a003b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: {x: 0, y: 3, z: 0}
+  shouldReceiveGifts: 0
+  arrowPrefab: {fileID: 8398690536455960983, guid: 738354f2630c664429ecf51184ac93b2,
+    type: 3}
+  arrowRotationSpeed: 10
 --- !u!1 &9218817674443522802
 GameObject:
   m_ObjectHideFlags: 0
