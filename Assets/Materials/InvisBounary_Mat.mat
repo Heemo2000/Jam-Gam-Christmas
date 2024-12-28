@@ -8,7 +8,8 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: InvisBounary_Mat
-  m_Shader: {fileID: 101, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: -6465566751694194690, guid: da55786655fab9c4696035537afd2580,
+    type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -25,6 +26,10 @@ Material:
     m_TexEnvs:
     - _BaseMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BaseTexture:
+        m_Texture: {fileID: 2800000, guid: a9c8742c94597d04db2aaa4254b0f82e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -48,8 +53,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: f4923075aaabf6c4d88b508c6ed5970e, type: 3}
+        m_Scale: {x: 5, y: 5}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
@@ -82,6 +87,8 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaClip: 0
+    - _AlphaClipThreshold: 0.136
+    - _AlphaRatio: 0
     - _AlphaToMask: 0
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
@@ -94,13 +101,28 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
+    - _EdgeFalloffExponent: 6
+    - _EdgeIntensity: 10
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _HexEdgeIntensity: 2
+    - _HexEdgePosScale: 80
+    - _HexEdgeTimeScale: 5
+    - _HexEdgeWidthModifier: 0.806
+    - _IntersectFalloffExponent: 6
+    - _IntersectIntensity: 10
+    - _MaxAlpha: 0.9
     - _Metallic: 0
+    - _MinDistance: 10
     - _OcclusionStrength: 1
     - _Parallax: 0.005
+    - _PulseIntensity: 7.61
+    - _PulsePosScale: 107.47
+    - _PulseTexOffsetScale: 22
+    - _PulseTimeScale: 5
+    - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Smoothness: 0.5
@@ -113,8 +135,13 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.2528302, g: 0.24376647, b: 0.24376647, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _HexEdgeColor: {r: 1, g: 1, b: 1, a: 0}
+    - _MaxSize: {r: 4, g: 4, b: 0, a: 0}
+    - _MinSize: {r: 2, g: 2, b: 0, a: 0}
+    - _MoveDirection: {r: 1, g: 0, b: 0, a: 0}
+    - _SizeChangingSpeed: {r: 0.2, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &6087804584683020630

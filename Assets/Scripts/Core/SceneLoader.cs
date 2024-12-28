@@ -22,6 +22,7 @@ namespace Game.Core
 
         private IEnumerator LoadSceneAsync(string sceneName)
         {
+
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
 
             while(!asyncLoad.isDone)
@@ -29,7 +30,7 @@ namespace Game.Core
                 OnSceneLoading?.Invoke(asyncLoad.progress);
                 yield return null;
             }
-
+            
             _sceneCoroutine = null;
         }
     }

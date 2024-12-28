@@ -135,16 +135,19 @@ namespace Game.Gameplay
         }
         public bool IsGrounded()
         {
-            bool result = false;
+            
             foreach(Transform groundCheck in groundChecks)
             {
                 if(groundCheck == null)
                 {
                     continue;
                 }
-                result |= Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundMask.value);
+                if(Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundMask.value))
+                {
+                    return true;
+                }
             }
-            return result;
+            return false;
         }
         
         private void Awake() 

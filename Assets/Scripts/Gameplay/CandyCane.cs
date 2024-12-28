@@ -18,13 +18,14 @@ namespace Game.Gameplay
             Vector3 startPosition = transform.position;
             Vector3 endPosition = transform.position + Vector3.up * candyCaneDataSO.maxDisplacement;
             float delta = 0.0f;
-
+            Random.InitState((int)System.DateTime.Now.Ticks);
+            float randomSpeed = Random.Range(candyCaneDataSO.minMoveSpeed, candyCaneDataSO.maxMoveSpeed + 0.1f);
             while(GameStateManager.Instance != null && GameStateManager.Instance.IsGameOver() == false)
             {
                 if(delta <= 1.0f)
                 {
                     transform.position = Vector3.Lerp(startPosition, endPosition, delta);
-                    delta += candyCaneDataSO.moveSpeed * Time.fixedDeltaTime;
+                    delta += randomSpeed * Time.fixedDeltaTime;
                     yield return null;
                 }
                 else

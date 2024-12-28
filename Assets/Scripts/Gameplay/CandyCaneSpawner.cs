@@ -12,36 +12,28 @@ namespace Game.Gameplay
         
         [SerializeField]private Transform[] spawnPoints;
         
-        [Min(0.1f)]
-        [SerializeField]private float acceptSpawnPointProb = 0.5f;
-
+        [Range(0.1f, 1.0f)]
+        [SerializeField]private float minAcceptSpawnPointProb = 0.5f;
+        
+        [SerializeField]private bool generateCandies = false;
         private CandyCane[] candyCanePrefabs;
-        private void SpawnBasedOnWeight()
+
+        public bool GenerateCandies { get => generateCandies; }
+
+        private void SpawnRandomCandies()
         {
-            int totalWeight = 0;
-            foreach(CandyCane candyCane in candyCanePrefabs)
+            if(spawnPoints == null || spawnPoints.Length == 0)
             {
-                totalWeight += candyCane.Data.weight;
+                return;
             }
-
-            int randomWeight = Random.Range(0, totalWeight);
-            int cummulativeWeight = 0;
-
             foreach(Transform spawnPoint in spawnPoints)
             {
                 float randomProb = Random.value;
-                if(randomProb >= (1.0f - acceptSpawnPointProb))
+                if(randomProb >= (1.0f - minAcceptSpawnPointProb) )
                 {
-                    foreach(CandyCane candyCanePrefab in candyCanePrefabs)
-                    {
-                        var data = candyCanePrefab.Data;
-                        cummulativeWeight += data.weight;
-                        if(cummulativeWeight <= randomWeight)
-                        {
-                            CandyCane candyCane = Instantiate(candyCanePrefab, spawnPoint.position, Quaternion.identity);
-                            break;
-                        }
-                    }
+                    int randomIndex = Random.Range(0, candyCanePrefabs.Length);
+                    CandyCane candyCane = Instantiate(candyCanePrefabs[randomIndex], spawnPoint.position, Quaternion.identity);   
+                    candyCane.transform.parent = transform;
                 }
             }
             
@@ -55,10 +47,18 @@ namespace Game.Gameplay
         // Start is called before the first frame update
         void Start()
         {
+            if(normalCandyCanePrefab == null || movingCandyCanePrefab == null || respawnCandyCanePrefab == null)
+            {
+                return;
+            }
             candyCanePrefabs[0] = normalCandyCanePrefab;
             candyCanePrefabs[1] = movingCandyCanePrefab;
             candyCanePrefabs[2] = respawnCandyCanePrefab;
-            SpawnBasedOnWeight();
+
+            if(generateCandies)
+            {
+                SpawnRandomCandies();
+            }
         }
     }
 }

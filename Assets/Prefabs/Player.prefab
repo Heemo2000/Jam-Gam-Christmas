@@ -154,6 +154,14 @@ MonoBehaviour:
   pivotOffset: {x: 0.1, y: 0.1, z: 0}
   amplitudeGain: 1
   frequencyGain: 1
+  boundaryLayerMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  boundaryCheckDistance: 50
+  boundaryCheckRadius: 30
+  boundaryMaterial: {fileID: 2100000, guid: 26aebbed1a2de5241a16da2854d562df, type: 2}
+  requiredAlpha: 0.12
+  alphaThreshold: 0.15
 --- !u!1 &5376893703445491062
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,10 +251,10 @@ MonoBehaviour:
   - {fileID: 1289520564859441734}
   - {fileID: 8543477504072323777}
   groundCheckRadius: 0.3
-  fallMultiplier: 1
+  fallMultiplier: 2
   allowGravity: 1
-  jumpHeight: 2
-  jumpTime: 1
+  jumpHeight: 10
+  jumpTime: 5
 --- !u!114 &8094064517062505961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,9 +270,65 @@ MonoBehaviour:
   walkingSpeed: 8
   sprintingSpeed: 15
   acceleration: 2
-  rotatingSpeed: 25
+  rotatingSpeed: 12.5
   lookSpeed: 5
   cameraController: {fileID: 9000102453265051780}
+  collectableMask:
+    serializedVersion: 2
+    m_Bits: 64
+  deadZoneMask:
+    serializedVersion: 2
+    m_Bits: 256
+  gamePassedMask:
+    serializedVersion: 2
+    m_Bits: 2048
+  interactMask:
+    serializedVersion: 2
+    m_Bits: 512
+  maxCheckDistance: 5
+  maxCheckRadius: 5
+  tossAnimCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2.002469
+      outSlope: 2.002469
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.49938348
+      value: 1
+      inSlope: 0.0024661422
+      outSlope: 0.0024661422
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -1.9975368
+      outSlope: -1.9975368
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  gifts:
+  - {fileID: 9157292647551520858, guid: e5ddaf56b2511184a97bd4749e7e0f8a, type: 3}
+  - {fileID: 8214628882827415858, guid: 54c717007d79dac44b1bbbd2911ba46a, type: 3}
+  tossSpeed: 5
+  maxTossHeight: 2
+  touchCandies: 1
+  interactWithPillars: 1
+  allowGameOver: 0
+  allowGamePassed: 0
 --- !u!1 &5453876504427199854
 GameObject:
   m_ObjectHideFlags: 0

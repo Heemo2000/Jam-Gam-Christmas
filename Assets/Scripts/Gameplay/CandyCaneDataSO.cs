@@ -27,8 +27,11 @@ namespace Game.Gameplay
         [Min(1.0f)]
         public float maxDisplacement = 5.0f;
 
+
         [Min(0.1f)]
-        public float moveSpeed = 5.0f;
+        public float minMoveSpeed = 5.0f;
+        [Min(0.2f)]
+        public float maxMoveSpeed = 10.0f;
 
         [Min(0.5f)]
         public float waitTime = 0.5f;
