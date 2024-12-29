@@ -15,6 +15,7 @@ namespace Game.Core
         {
             if(_sceneCoroutine == null)
             {
+                //Debug.Log("Loading scene " + sceneName);
                 _sceneCoroutine = StartCoroutine(LoadSceneAsync(sceneName));
             }
         }

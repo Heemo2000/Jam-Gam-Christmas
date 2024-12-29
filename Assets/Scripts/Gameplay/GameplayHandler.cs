@@ -7,6 +7,8 @@ using Game.UI;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+
+using Debug = UnityEngine.Debug;
 namespace Game.Gameplay
 {
     public class GameplayHandler : MonoSingelton<GameplayHandler>
@@ -33,23 +35,25 @@ namespace Game.Gameplay
         [SerializeField]private TMP_Text gamePassedTimerText;
         [SerializeField]private TMP_Text gameOverTimerText;
         [SerializeField]private TMP_Text giftGivenText;
+        [SerializeField]private TMP_Text objectiveText;
         [Min(1)]
         [SerializeField]private int maxGiftsToGive = 10;
         [SerializeField]private GameInput gameInput;
-        [SerializeField]private GameObject gamePassedRegion;
-
+        [SerializeField]private GamePassedRegionIndicator indicator;
         Stopwatch stopwatch;
         private int currentGiftsGivenCount = 0;
-
         private bool shouldStartTimer = false;
-
+        
+        
         public void IncreaseGiftGivenCounter()
         {
             currentGiftsGivenCount++;
             giftGivenText.text = currentGiftsGivenCount + "/" + maxGiftsToGive + " Presents Delivered";
-            if(!gamePassedRegion.activeInHierarchy && currentGiftsGivenCount >= maxGiftsToGive)
+            if(currentGiftsGivenCount >= maxGiftsToGive)
             {
-                gamePassedRegion.SetActive(true);
+               indicator.SetGamePassedRegionActive(true);
+               objectiveText.text = "<color=red>Objective:</color>\n<color=red>Get to the destination indicated in white color</color>";
+               giftGivenText.gameObject.SetActive(false);
             }
         }
         private string GetTime()
@@ -110,15 +114,17 @@ namespace Game.Gameplay
         private void RestartLevel()
         {
             loadingPage.OnPostPushAction.RemoveAllListeners();
-            loadingPage.OnPostPopAction.AddListener(()=> sceneLoader.LoadScene(Constants.LEVEL_SCENE_NAME));
+            loadingPage.OnPostPushAction.AddListener(()=> sceneLoader.LoadScene(Constants.LEVEL_SCENE_NAME));
             uiManager.PushPage(loadingPage);
+            //Debug.Log("Restarting the level");
         }
 
         private void GoBackToMain()
         {
             loadingPage.OnPostPushAction.RemoveAllListeners();
-            loadingPage.OnPostPopAction.AddListener(()=> sceneLoader.LoadScene(Constants.MAIN_MENU_SCENE_NAME));
+            loadingPage.OnPostPushAction.AddListener(()=> sceneLoader.LoadScene(Constants.MAIN_MENU_SCENE_NAME));
             uiManager.PushPage(loadingPage);
+            //Debug.Log("Going back to main");
         }
 
         private void Setup()
@@ -167,9 +173,12 @@ namespace Game.Gameplay
 
             currentGiftsGivenCount = 0;
             giftGivenText.text = currentGiftsGivenCount + "/" + maxGiftsToGive + " Presents Delivered";
-            gamePassedRegion.SetActive(false);
+            
+            indicator.SetGamePassedRegionActive(false);
+            
             GameStateManager.Instance.OnGameStateChanged.AddListener(HandleInGameBehaviour);
-            //Random.InitState((int)System.DateTime.Now.Ticks);
+            
+            Random.InitState((int)System.DateTime.Now.Ticks);
         }
 
         // Update is called once per frame
