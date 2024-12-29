@@ -49,6 +49,13 @@ namespace Game.Gameplay
         [Min(1.0f)]
         [SerializeField]private float tossSpeed = 5.0f;
         [SerializeField]private float maxTossHeight = 2.0f;
+        
+        [Header("Visual Settings:")]
+        [SerializeField]private float normalCandyCaneShowTime = 1.0f;
+        [SerializeField]private Color normalCandyCaneShowColor = Color.white;
+        [SerializeField]private Color movingCandyCaneShowColor = Color.white;
+        [SerializeField]private Color respawnCandyCaneShowColor = Color.white;
+
         [Header("Feature Flags: ")]
         [SerializeField]private bool touchCandies = false;
         [SerializeField]private bool interactWithPillars = false;
@@ -61,9 +68,23 @@ namespace Game.Gameplay
         private Vector2 normalLookDelta;
         private Vector2 smoothLookDelta;
         private float currentSpeed = 0.0f;
-        private Coroutine giftCoroutine;
+        private Coroutine giftCoroutine = null;
+        private Coroutine visualCoroutine = null;
         private bool allowNormalMovement = false;
+        private PowerupVisual powerupVisual;
 
+
+        private IEnumerator ShowNormalCandyCaneVisual()
+        {
+            powerupVisual.SetVisualActiveStatus(true);
+            powerupVisual.SetColor(normalCandyCaneShowColor);
+
+            yield return new WaitForSeconds(normalCandyCaneShowTime);
+
+            powerupVisual.SetVisualActiveStatus(false);
+
+            visualCoroutine = null;
+        }
         private void HandleJump()
         {
             
@@ -82,12 +103,20 @@ namespace Game.Gameplay
         private IEnumerator IncreaseSpeedForLimitedTime(float speedIncrease, float time)
         {
             sprintingSpeed += speedIncrease;
+            
+            powerupVisual.SetVisualActiveStatus(true);
+            powerupVisual.SetColor(movingCandyCaneShowColor);
+
             yield return new WaitForSeconds(time);
             sprintingSpeed -= speedIncrease;
+
+            powerupVisual.SetVisualActiveStatus(false);
         }
 
         private void OnStartRespawning()
         {
+            powerupVisual.SetVisualActiveStatus(true);
+            powerupVisual.SetColor(respawnCandyCaneShowColor);
             allowNormalMovement = false;
         }
 
@@ -98,6 +127,7 @@ namespace Game.Gameplay
         }
         private void OnEndRespawning()
         {
+            powerupVisual.SetVisualActiveStatus(false);
             allowNormalMovement = true;
         }
 
@@ -183,6 +213,9 @@ namespace Game.Gameplay
         void Start()
         {
             gameInput = FindObjectOfType<GameInput>(true);
+            powerupVisual = FindObjectOfType<PowerupVisual>();
+            powerupVisual.gameObject.SetActive(true);
+            powerupVisual.enabled = true;
             gameInput.gameObject.SetActive(true);
             gameInput.enabled = true;
             gameInput.OnInteractPressed += HandleInteractions;
@@ -285,9 +318,18 @@ namespace Game.Gameplay
             {
                 case CandyCaneType.NormalCandyCane:
                                                     sprintingSpeed += data.speedIncrease;
+                                                    if(visualCoroutine == null)
+                                                    {
+                                                        visualCoroutine = StartCoroutine(ShowNormalCandyCaneVisual());
+                                                    }
                                                     break;
 
                 case CandyCaneType.MovingCandyCane: 
+                                                    if(visualCoroutine != null)
+                                                    {
+                                                        StopCoroutine(visualCoroutine);
+                                                        visualCoroutine = null;
+                                                    }
                                                     StartCoroutine(IncreaseSpeedForLimitedTime(data.speedIncrease, data.effectTime));
                                                     break;
                 
