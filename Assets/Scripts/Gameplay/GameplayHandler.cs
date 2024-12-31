@@ -77,24 +77,26 @@ namespace Game.Gameplay
                                             uiManager.PopPage();
                                             stopwatch.Start();
                                         }
-                                        
+                                        Cursor.visible = false;
                                         break;
                 case GameState.Paused:
                                         uiManager.PushPage(pausePage);
                                         stopwatch.Stop();
+                                        Cursor.visible = true;
                                         break;
                 case GameState.GamePassed:
                                         PlayGamePassedSound();
                                         stopwatch.Stop();
                                         gamePassedTimerText.text = GetTime();
                                         uiManager.PushPage(gamePassedPage);
-                                        
+                                        Cursor.visible = true;
                                         break;
                 case GameState.GameOver:
                                         PlayGameOverSound();
                                         stopwatch.Stop();
                                         gameOverTimerText.text = GetTime();
                                         uiManager.PushPage(gameOverPage);
+                                        Cursor.visible = true;
                                         break;
             }
         }
